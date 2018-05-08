@@ -14,7 +14,7 @@ import lombok.Data;
 public class ReportCSV implements Serializable {
 
     @JsonProperty("site")
-    private String site;
+    private SiteEnum site;
 
     @JsonProperty("requests")
     private long requests;
