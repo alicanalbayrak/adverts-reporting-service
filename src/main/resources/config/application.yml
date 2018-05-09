@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: crealytics-restful-reporting-service
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        use_sql_comments: true
+        show_sql: true
+        max_fetch_depth: 3
+        jdbc:
+          batch_size: 10
+          fetch_size: 50
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+  datasource:
+    name: reports
+    url: jdbc:h2:mem:report_db;DB_CLOSE_DELAY=-1
+    username: alicana
+    password: pa$$word
