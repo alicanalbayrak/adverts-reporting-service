@@ -1,8 +1,10 @@
 package com.crealytics.adverts.reportingservice.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.crealytics.adverts.reportingservice.domain.enumaration.SiteEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
@@ -31,5 +33,8 @@ public class ReportCSV implements Serializable {
 
     @JsonProperty("revenue (USD)")
     private double revenue;
+
+    @JsonIgnore
+    private Date reportDate;
 
 }
