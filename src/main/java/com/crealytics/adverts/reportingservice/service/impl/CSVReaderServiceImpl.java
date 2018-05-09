@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
 
-import com.crealytics.adverts.reportingservice.model.ReportCSV;
+import com.crealytics.adverts.reportingservice.domain.ReportCSV;
 import com.crealytics.adverts.reportingservice.service.CSVReaderService;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -30,13 +30,12 @@ public class CSVReaderServiceImpl implements CSVReaderService {
     public void deserializeFiles(Resource[] csvResources) throws IOException {
 
         CsvMapper mapper = new CsvMapper();
-        CsvSchema schema = mapper.schemaFor(ReportCSV.class).withColumnReordering(false).withHeader(); // schema from 'Pojo' definition
+        CsvSchema schema = mapper.schemaFor(ReportCSV.class).withColumnReordering(false).withHeader();
         ObjectReader oReader = mapper.readerFor(ReportCSV.class).with(schema);
 
         try (Reader reader = new FileReader(csvResources[0].getFile())) {
             MappingIterator<ReportCSV> mi = oReader.readValues(reader);
             List<ReportCSV> all = mi.readAll();
-            LOG.info(all.toString());
         }
     }
 

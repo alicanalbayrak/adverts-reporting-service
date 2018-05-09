@@ -1,7 +1,8 @@
-package com.crealytics.adverts.reportingservice.model;
+package com.crealytics.adverts.reportingservice.domain;
 
 import java.io.Serializable;
 
+import com.crealytics.adverts.reportingservice.domain.enumaration.SiteEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;

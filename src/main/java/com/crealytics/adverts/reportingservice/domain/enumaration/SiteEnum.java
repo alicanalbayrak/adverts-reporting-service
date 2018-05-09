@@ -1,4 +1,4 @@
-package com.crealytics.adverts.reportingservice.model;
+package com.crealytics.adverts.reportingservice.domain.enumaration;
 
 import java.util.HashMap;
 import java.util.Map;
