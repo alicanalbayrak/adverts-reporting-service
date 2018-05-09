@@ -14,13 +14,17 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-
 /**
  * @author alican.albayrak
  */
 public class ReportCSVMapperTest {
 
     private static final SiteEnum expectedSite = SiteEnum.android;
+    private static final Long expectedClicks = 1L;
+    private static final Long expectedConversions = 2L;
+    private static final Long expectedImpressions = 3L;
+    private static final Long expectedRequests = 4L;
+    private static final double expectedRevenue = new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
     ReportCSVMapper reportCSVMapper = ReportCSVMapper.INSTANCE;
 
@@ -34,17 +38,22 @@ public class ReportCSVMapperTest {
 
         ReportCSV reportCSV = new ReportCSV();
         reportCSV.setSite(expectedSite);
-        reportCSV.setClicks(1L);
-        reportCSV.setConversions(2L);
-        reportCSV.setImpressions(3L);
-        reportCSV.setRequests(4L);
+        reportCSV.setClicks(expectedClicks);
+        reportCSV.setConversions(expectedConversions);
+        reportCSV.setImpressions(expectedImpressions);
+        reportCSV.setRequests(expectedRequests);
         reportCSV.setRevenue(expectedRevenue);
         reportCSV.setReportDate(expectedDate);
-
 
         Report report = reportCSVMapper.reportCsvToReportEntity(reportCSV);
 
         assertEquals(expectedSite, report.getSite());
+        assertEquals(expectedClicks, report.getClicks());
+        assertEquals(expectedConversions, report.getConversions());
+        assertEquals(expectedImpressions, report.getImpressions());
+        assertEquals(expectedRequests, report.getRequests());
+        assertEquals(expectedRevenue, report.getRevenue().doubleValue(), 0.001);
+        assertEquals(expectedDate, report.getReportDate());
 
     }
 }
