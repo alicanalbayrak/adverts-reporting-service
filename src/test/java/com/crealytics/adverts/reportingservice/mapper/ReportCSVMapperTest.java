@@ -2,7 +2,7 @@ package com.crealytics.adverts.reportingservice.mapper;
 
 import com.crealytics.adverts.reportingservice.domain.Report;
 import com.crealytics.adverts.reportingservice.domain.ReportCSV;
-import com.crealytics.adverts.reportingservice.domain.ReportCSVMapper;
+import com.crealytics.adverts.reportingservice.domain.mapper.ReportCSVMapper;
 import com.crealytics.adverts.reportingservice.domain.enumaration.SiteEnum;
 import org.junit.Test;
 
@@ -33,8 +33,6 @@ public class ReportCSVMapperTest {
 
         SimpleDateFormat reportDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date expectedDate = reportDateFormat.parse("2018-05-01");
-
-        double expectedRevenue = new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
         ReportCSV reportCSV = new ReportCSV();
         reportCSV.setSite(expectedSite);
