@@ -13,5 +13,5 @@ public interface CSVReaderService {
 
     Resource[] getCSVResources() throws IOException;
 
-    List<ReportCSV> deserializeFiles(Resource[] csvResources) throws IOException;
+    List<ReportCSV> deserializeFiles(Resource[] csvResources);
 }
