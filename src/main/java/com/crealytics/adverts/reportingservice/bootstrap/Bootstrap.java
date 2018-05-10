@@ -1,8 +1,8 @@
 package com.crealytics.adverts.reportingservice.bootstrap;
 
 import com.crealytics.adverts.reportingservice.domain.ReportCSV;
-import com.crealytics.adverts.reportingservice.repositories.ReportRepository;
 import com.crealytics.adverts.reportingservice.service.CSVReaderService;
+import com.crealytics.adverts.reportingservice.service.ReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
     private static final Logger LOG = LoggerFactory.getLogger(Bootstrap.class);
 
     private CSVReaderService csvReaderService;
-    private ReportRepository reportRepository;
+    private ReportService reportService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -39,16 +39,15 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         }
 
         Resource[] resources = resourcesOptional.get();
-        List<ReportCSV> deserializedReports = csvReaderService.deserializeFiles(resources);
+        List<ReportCSV> deserializedReportCSV = csvReaderService.deserializeFiles(resources);
 
-        //        if (deserializedObjects.isEmpty()) {
-//            LOG.error("There is no report to import");
-//        }
-//
-//        List<Report> a = ReportCSVMapper.INSTANCE.toReportList(deserializedObjects);
-//        reportRepository.saveAll(a);
+        if (deserializedReportCSV.isEmpty()) {
+            LOG.error("There is no report to import");
+        }
 
+        reportService.saveReportCSVList(deserializedReportCSV);
     }
+
 
     private Optional<Resource[]> retrieveReports() {
         LOG.debug("Retrieving reports");
@@ -62,14 +61,13 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         return Optional.empty();
     }
 
-
     @Autowired
     public void setCsvReaderService(CSVReaderService csvReaderService) {
         this.csvReaderService = csvReaderService;
     }
 
     @Autowired
-    public void setReportRepository(ReportRepository reportRepository) {
-        this.reportRepository = reportRepository;
+    public void setReportService(ReportService reportService) {
+        this.reportService = reportService;
     }
 }

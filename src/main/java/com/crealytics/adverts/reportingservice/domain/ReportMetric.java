@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
-@Entity(name = "ReportMetrics")
-public class ReportMetrics {
+@Entity(name = "ReportMetric")
+public class ReportMetric {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +34,7 @@ public class ReportMetrics {
     @Column(name = "ecpm")
     private Double effectieCostPerThousand;
 
+    @OneToOne(mappedBy = "reportMetric")
+    private Report report;
 
 }

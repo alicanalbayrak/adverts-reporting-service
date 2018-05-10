@@ -1,14 +1,6 @@
 package com.crealytics.adverts.reportingservice.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -60,5 +52,9 @@ public class Report {
     @Temporal(TemporalType.DATE)
     @Column(name = "report_date")
     private Date reportDate;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "report_metric_id")
+    private ReportMetric reportMetric;
 
 }
