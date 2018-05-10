@@ -54,6 +54,7 @@ public class ReportServiceImpl implements ReportService {
             LOG.error("Exception thrown while submitting calculation callables", e);
         }
 
+        executorService.shutdown();
 
         List<Report> result = new ArrayList<>();
         futureList.forEach(reportMetricFuture -> {
