@@ -3,17 +3,16 @@ package com.crealytics.adverts.reportingservice.domain.mapper;
 import com.crealytics.adverts.reportingservice.domain.Report;
 import com.crealytics.adverts.reportingservice.domain.ReportCSV;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * @author alican.albayrak
  */
-@Mapper
+@Component
+@Mapper(componentModel = "spring")
 public interface ReportCSVMapper {
-
-    ReportCSVMapper INSTANCE = Mappers.getMapper(ReportCSVMapper.class);
 
     Report reportCsvToReportEntity(ReportCSV reportCSV);
 

@@ -5,6 +5,9 @@ import com.crealytics.adverts.reportingservice.domain.ReportCSV;
 import com.crealytics.adverts.reportingservice.domain.mapper.ReportCSVMapper;
 import com.crealytics.adverts.reportingservice.domain.enumaration.SiteEnum;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mapstruct.factory.Mappers;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -17,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author alican.albayrak
  */
+@RunWith(SpringRunner.class)
 public class ReportCSVMapperTest {
 
     private static final SiteEnum expectedSite = SiteEnum.android;
@@ -26,7 +30,7 @@ public class ReportCSVMapperTest {
     private static final Long expectedRequests = 4L;
     private static final double expectedRevenue = new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
-    ReportCSVMapper reportCSVMapper = ReportCSVMapper.INSTANCE;
+    ReportCSVMapper reportCSVMapper = Mappers.getMapper(ReportCSVMapper.class);
 
     @Test
     public void testReportCSVMapper() throws ParseException {

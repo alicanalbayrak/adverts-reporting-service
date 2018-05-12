@@ -7,7 +7,8 @@ import com.crealytics.adverts.reportingservice.repositories.ReportRepository;
 import com.crealytics.adverts.reportingservice.service.ReportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,15 +29,21 @@ public class ReportServiceImpl implements ReportService {
     private static final Logger LOG = LoggerFactory.getLogger(ReportServiceImpl.class);
     private static final int COMBINE_UNIT_THREAD_LEVEL = 4;
 
-    private ReportRepository reportRepository;
+    private final ReportCSVMapper reportCSVMapper;
+    private final ReportRepository reportRepository;
+
+    public ReportServiceImpl(ReportCSVMapper reportCSVMapper, ReportRepository reportRepository) {
+        this.reportCSVMapper = reportCSVMapper;
+        this.reportRepository = reportRepository;
+    }
 
     @Override
     public List<Report> saveReportCSVList(List<ReportCSV> deserializedReportCSV) {
 
-        List<Report> reports = ReportCSVMapper.INSTANCE.toReportList(deserializedReportCSV);
+        List<Report> reports = reportCSVMapper.toReportList(deserializedReportCSV);
         List<Report> enhancedReports = combineReportMetrics(reports);
 
-        return (List<Report>) reportRepository.saveAll(enhancedReports);
+        return reportRepository.saveAll(enhancedReports);
     }
 
     @Override
@@ -68,9 +75,9 @@ public class ReportServiceImpl implements ReportService {
         return result;
     }
 
-    @Autowired
-    public void setReportRepository(ReportRepository reportRepository) {
-        this.reportRepository = reportRepository;
+    @Override
+    public Page<Report> findAll(Pageable pageable) {
+        return reportRepository.findAll(pageable);
     }
 
 }
