@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  */
 public class ReportMetricCalculationUtil {
 
-    private static final int SCALE = 3;
+    private static final int SCALE = 2;
     private static final double HUNDRED = 100d;
     private static final double THOUSAND = 1000d;
 

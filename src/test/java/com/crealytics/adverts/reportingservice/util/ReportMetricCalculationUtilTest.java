@@ -26,7 +26,7 @@ public class ReportMetricCalculationUtilTest {
 
     @Test
     public void testFillRateCalculation() {
-
+        assertEquals(92.2d, ReportMetricCalculationUtil.calculateRatio(10366355, 11_243_875), EPSILON);
     }
 
     @Test
@@ -34,6 +34,6 @@ public class ReportMetricCalculationUtilTest {
         // Example : An ad size of 728 has delivered 213456 impressions
         // and has also spent some $300 with CPM set as $1.5, what will be the eCPM ?
 
-        assertEquals(1.40d, ReportMetricCalculationUtil.calculateECPM(new BigDecimal(300), 213_456), EPSILON);
+        assertEquals(1.41d, ReportMetricCalculationUtil.calculateECPM(new BigDecimal(300), 213_456), EPSILON);
     }
 }
