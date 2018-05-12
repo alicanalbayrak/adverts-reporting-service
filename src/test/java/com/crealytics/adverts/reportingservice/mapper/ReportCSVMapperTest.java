@@ -30,7 +30,7 @@ public class ReportCSVMapperTest {
     private static final Long expectedRequests = 4L;
     private static final double expectedRevenue = new BigDecimal(1234.56).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
-    ReportCSVMapper reportCSVMapper = Mappers.getMapper(ReportCSVMapper.class);
+    private ReportCSVMapper reportCSVMapper = Mappers.getMapper(ReportCSVMapper.class);
 
     @Test
     public void testReportCSVMapper() throws ParseException {
