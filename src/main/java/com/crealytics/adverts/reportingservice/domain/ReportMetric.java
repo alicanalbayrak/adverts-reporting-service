@@ -33,7 +33,7 @@ public class ReportMetric {
 
     @NotNull
     @Column(name = "ecpm")
-    private Double effectieCostPerThousand;
+    private Double effectiveCostPerThousand;
 
     @JsonIgnore
     @OneToOne(mappedBy = "reportMetric")

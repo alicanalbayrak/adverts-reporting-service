@@ -25,9 +25,12 @@ public class ReportDTO implements Serializable {
 
     private BigDecimal revenue;
 
-// "CTR" : "some_value",
-// "CR" : "some_value",
-// "fill_rate" : "some_value",
-// "eCPM" : "some_value"
+    private Double clickThroughRate;
+
+    private Double conversionRate;
+
+    private Double fillRate;
+
+    private Double effectiveCostPerThousand;
 
 }
