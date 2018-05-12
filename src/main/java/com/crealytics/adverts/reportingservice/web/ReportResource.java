@@ -1,7 +1,7 @@
 package com.crealytics.adverts.reportingservice.web;
 
-import com.crealytics.adverts.reportingservice.domain.Report;
 import com.crealytics.adverts.reportingservice.service.ReportService;
+import com.crealytics.adverts.reportingservice.service.dto.ReportDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,8 +24,8 @@ public class ReportResource {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Report>> getAllReports(Pageable pageable) {
-        Page<Report> page = reportService.findAll(pageable);
+    public ResponseEntity<Page<ReportDTO>> getAllReports(Pageable pageable) {
+        Page<ReportDTO> page = reportService.findAll(pageable);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 

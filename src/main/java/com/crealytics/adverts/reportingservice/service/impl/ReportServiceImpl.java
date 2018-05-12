@@ -3,8 +3,10 @@ package com.crealytics.adverts.reportingservice.service.impl;
 import com.crealytics.adverts.reportingservice.domain.Report;
 import com.crealytics.adverts.reportingservice.domain.ReportCSV;
 import com.crealytics.adverts.reportingservice.domain.mapper.ReportCSVMapper;
+import com.crealytics.adverts.reportingservice.domain.mapper.ReportMapper;
 import com.crealytics.adverts.reportingservice.repositories.ReportRepository;
 import com.crealytics.adverts.reportingservice.service.ReportService;
+import com.crealytics.adverts.reportingservice.service.dto.ReportDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -30,10 +32,12 @@ public class ReportServiceImpl implements ReportService {
     private static final int COMBINE_UNIT_THREAD_LEVEL = 4;
 
     private final ReportCSVMapper reportCSVMapper;
+    private final ReportMapper reportMapper;
     private final ReportRepository reportRepository;
 
-    public ReportServiceImpl(ReportCSVMapper reportCSVMapper, ReportRepository reportRepository) {
+    public ReportServiceImpl(ReportCSVMapper reportCSVMapper, ReportMapper reportMapper, ReportRepository reportRepository) {
         this.reportCSVMapper = reportCSVMapper;
+        this.reportMapper = reportMapper;
         this.reportRepository = reportRepository;
     }
 
@@ -76,8 +80,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Page<Report> findAll(Pageable pageable) {
-        return reportRepository.findAll(pageable);
+    public Page<ReportDTO> findAll(Pageable pageable) {
+        return reportRepository.findAll(pageable).map(reportMapper::toDto);
     }
 
 }
