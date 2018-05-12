@@ -1,5 +1,6 @@
 package com.crealytics.adverts.reportingservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,6 +35,7 @@ public class ReportMetric {
     @Column(name = "ecpm")
     private Double effectieCostPerThousand;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "reportMetric")
     private Report report;
 
