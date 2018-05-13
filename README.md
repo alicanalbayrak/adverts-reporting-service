@@ -77,11 +77,13 @@ http://localhost:8080/swagger-ui.html
 ##### Parameter Definitions
 
 **Month:**
+
 * numeric (ranging from 1-12) that map to the corresponding months (`1` for `January`, `2` for `February` etc)
 * first 3 letters of the month (`Jan` for `January`, `Feb` for `February` etc)
 * full name of the month (case insensitive)
 
 **Site:**
+
 * desktop_web
 * mobile_web
 * android
