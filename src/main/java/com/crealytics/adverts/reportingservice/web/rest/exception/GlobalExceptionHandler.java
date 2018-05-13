@@ -81,24 +81,21 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ResponseBody
     public CommonExceptionResponse handleException(HttpRequestMethodNotSupportedException ex) {
-        CommonExceptionResponse commonExceptionResponse = new CommonExceptionResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
-        return commonExceptionResponse;
+        return new CommonExceptionResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public CommonExceptionResponse handleException(CommonException ex) {
-        CommonExceptionResponse commonExceptionResponse = new CommonExceptionResponse(ex.getHttpStatus(), ex.getMessage());
-        return commonExceptionResponse;
+        return new CommonExceptionResponse(ex.getHttpStatus(), ex.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public CommonExceptionResponse handleException(Exception ex) {
-        CommonExceptionResponse commonExceptionResponse = new CommonExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Sorry, something went wrong. Please try again later");
-        return commonExceptionResponse;
+        return new CommonExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Sorry, something went wrong. Please try again later");
     }
 
 }
