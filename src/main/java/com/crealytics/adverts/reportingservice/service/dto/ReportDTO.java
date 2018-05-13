@@ -1,5 +1,6 @@
 package com.crealytics.adverts.reportingservice.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  * @author alican.albayrak
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ReportDTO implements Serializable {
 
     @JsonProperty("month")
