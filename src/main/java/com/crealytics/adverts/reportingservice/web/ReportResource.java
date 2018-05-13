@@ -42,11 +42,11 @@ public class ReportResource {
             @ApiResponse(code = 400, message = "Bad Request", response = CommonExceptionResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = CommonExceptionResponse.class)
     })
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ResponseEntity<ReportDTO> getReport(
             @ApiParam(value = "Optional Month: 1, jan, january") @RequestParam(value = "month") Optional<String> month,
-            @ApiParam(value = "Optional Month: 1, jan, january") @RequestParam(value = "site") Optional<String> site) throws BadRequestException {
+            @ApiParam(value = "Optional Month: [desktop_web, mobile_web, android, iOS]") @RequestParam(value = "site") Optional<String> site) throws BadRequestException {
 
         if (!month.isPresent() && !site.isPresent()) {
             LOG.error("Both month and site arguments are missing!");
