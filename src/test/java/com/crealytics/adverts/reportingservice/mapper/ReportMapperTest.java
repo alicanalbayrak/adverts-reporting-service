@@ -8,7 +8,8 @@ import com.crealytics.adverts.reportingservice.service.dto.ReportDTO;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
@@ -18,10 +19,11 @@ import java.util.Date;
  * @author alican.albayrak
  */
 @RunWith(SpringRunner.class)
+@SpringBootTest
 public class ReportMapperTest extends TestCase {
 
-
-    private ReportMapper reportMapper = Mappers.getMapper(ReportMapper.class);
+    @Autowired
+    private ReportMapper reportMapper;
 
     @Test
     public void testDtoToEntity() {
