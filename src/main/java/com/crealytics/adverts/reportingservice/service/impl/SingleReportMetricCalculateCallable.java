@@ -19,11 +19,7 @@ public class SingleReportMetricCalculateCallable implements Callable<Report> {
 
     @Override
     public Report call() {
-        ReportMetric reportMetric = new ReportMetric();
-        reportMetric.setClickThroughRate(ReportMetricCalculationUtil.calculateRatio(report.getClicks(), report.getImpressions()));
-        reportMetric.setConversionRate(ReportMetricCalculationUtil.calculateRatio(report.getConversions(), report.getImpressions()));
-        reportMetric.setFillRate(ReportMetricCalculationUtil.calculateRatio(report.getImpressions(), report.getRequests()));
-        reportMetric.setEffectiveCostPerThousand(ReportMetricCalculationUtil.calculateECPM(report.getRevenue(), report.getImpressions()));
+        ReportMetric reportMetric = ReportMetricCalculationUtil.createReportMetricFromReport(report);
         report.setReportMetric(reportMetric);
         return report;
     }

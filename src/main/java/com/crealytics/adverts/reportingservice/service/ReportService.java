@@ -2,6 +2,7 @@ package com.crealytics.adverts.reportingservice.service;
 
 import com.crealytics.adverts.reportingservice.domain.Report;
 import com.crealytics.adverts.reportingservice.domain.ReportCSV;
+import com.crealytics.adverts.reportingservice.domain.enumaration.SiteEnum;
 import com.crealytics.adverts.reportingservice.service.dto.ReportDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,4 +19,6 @@ public interface ReportService {
     List<Report> combineReportMetrics(List<Report> reportList);
 
     Page<ReportDTO> findAll(Pageable pageable);
+
+    ReportDTO getReportByMonthAndSite(Integer month, SiteEnum site);
 }
