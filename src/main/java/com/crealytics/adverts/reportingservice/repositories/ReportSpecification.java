@@ -1,0 +1,35 @@
+package com.crealytics.adverts.reportingservice.repositories;
+
+import com.crealytics.adverts.reportingservice.domain.Report;
+import com.crealytics.adverts.reportingservice.domain.enumaration.SiteEnum;
+import org.springframework.data.jpa.domain.Specification;
+
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.Collection;
+
+/**
+ * @author alican.albayrak
+ */
+public class ReportSpecification {
+
+    public static Specification<Report> findByMonthAndSite(Integer month, SiteEnum siteEnum) {
+        return (Specification<Report>) (root, query, cb) -> {
+
+            final Collection<Predicate> predicates = new ArrayList<>();
+
+            if (month != -1) {
+                final Predicate monthPredicate = cb.equal(cb.function("month", Integer.class, root.get("reportDate")), month);
+                predicates.add(monthPredicate);
+            }
+
+            if (siteEnum != null) {
+                final Predicate sitePredicate = cb.equal(root.get("site"), siteEnum);
+                predicates.add(sitePredicate);
+            }
+
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+        };
+    }
+
+}
