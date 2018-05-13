@@ -1,7 +1,6 @@
 package com.crealytics.adverts.reportingservice.service.impl;
 
-import java.io.FileReader;
-import java.io.Reader;
+import java.io.*;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +51,7 @@ public class ReportDeserializeCallable implements Callable<List<ReportCSV>> {
         CsvSchema schema = mapper.schemaFor(ReportCSV.class).withColumnReordering(false).withHeader();
         ObjectReader oReader = mapper.readerFor(ReportCSV.class).with(schema);
 
-        try (Reader reader = new FileReader(resource.getFile())) {
+        try (Reader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
             MappingIterator<ReportCSV> csvMappingIterator = oReader.readValues(reader);
             return csvMappingIterator.readAll().stream()
                     .peek(f -> f.setReportDate(reportDateOptional.get()))
