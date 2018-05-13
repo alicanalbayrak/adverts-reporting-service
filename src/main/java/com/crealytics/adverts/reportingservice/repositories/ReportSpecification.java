@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
+ * This specification contains predicate definitions to query Report table
+ * in accordance with month and site column.
+ *
  * @author alican.albayrak
  */
 public class ReportSpecification {
@@ -18,7 +21,9 @@ public class ReportSpecification {
 
             final Collection<Predicate> predicates = new ArrayList<>();
 
+            // ignore month column if -1 provided
             if (month != -1) {
+                // Run sql function to compare month of date!!!
                 final Predicate monthPredicate = cb.equal(cb.function("month", Integer.class, root.get("reportDate")), month);
                 predicates.add(monthPredicate);
             }

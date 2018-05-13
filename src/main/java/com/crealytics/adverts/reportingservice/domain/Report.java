@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * Report entity object
+ *
  * @author alican.albayrak
  */
 @Getter

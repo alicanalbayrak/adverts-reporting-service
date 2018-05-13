@@ -15,6 +15,8 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
+ * Primary implementation of {@link ReportMapper} class.
+ *
  * @author alican.albayrak
  */
 @Primary
@@ -24,6 +26,14 @@ public abstract class ReportMapperDecorator implements ReportMapper {
 
     private ReportMapper delegate;
 
+    /**
+     * This method is workaround to map ReportDTO's month field correctly.
+     * Extracts month id from {@link Report#reportDate}, lookups month's
+     * String value then injects it to returning DTO.
+     *
+     * @param entity Report
+     * @return ReportDTO
+     */
     @Override
     public ReportDTO toDto(Report entity) {
         ReportDTO dto = delegate.toDto(entity);
@@ -41,7 +51,13 @@ public abstract class ReportMapperDecorator implements ReportMapper {
         return dto;
     }
 
-
+    /**
+     * This method overrided to prevent mapping operations on NULL
+     * entityList.
+     *
+     * @param entityList
+     * @return
+     */
     @Override
     public List<ReportDTO> toDto(List<Report> entityList) {
 

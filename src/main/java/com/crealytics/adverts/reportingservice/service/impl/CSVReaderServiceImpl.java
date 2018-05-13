@@ -27,12 +27,18 @@ public class CSVReaderServiceImpl implements CSVReaderService {
 
     private static final Logger LOG = LoggerFactory.getLogger(CSVReaderServiceImpl.class);
     private static final String CSV_LOCATION_PATTERN = "classpath*:/csv/*.csv";
-
+    private static final int CONCURRENCY_LEVEL = 8;
+    /**
+     * Deserializes each CSV resources in separate threads.
+     *
+     * @param csvResources
+     * @return
+     */
     @Override
     public List<ReportCSV> deserializeFiles(Resource[] csvResources) {
         LOG.debug("deserializing report files in csv format...");
 
-        ExecutorService executorService = Executors.newFixedThreadPool(8);
+        ExecutorService executorService = Executors.newFixedThreadPool(CONCURRENCY_LEVEL);
         ExecutorCompletionService<List<ReportCSV>> executorCompletionService = new ExecutorCompletionService<>(executorService);
 
         // submitting parsing tasks for each file
@@ -41,6 +47,7 @@ public class CSVReaderServiceImpl implements CSVReaderService {
 
         executorService.shutdown();
 
+        // Each thread writes its result in this collection
         CopyOnWriteArrayList<ReportCSV> resultList = new CopyOnWriteArrayList<>();
 
         // collecting results of  submitted tasks.
@@ -60,6 +67,11 @@ public class CSVReaderServiceImpl implements CSVReaderService {
         return resultList;
     }
 
+    /**
+     * Collects CSV files from classpath (/resources/csv)
+     * @return Resource array
+     * @throws IOException
+     */
     @Override
     public Resource[] getCSVResources() throws IOException {
         LOG.debug("Getting csv resources...");

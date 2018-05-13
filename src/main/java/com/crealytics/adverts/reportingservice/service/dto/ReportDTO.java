@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ * ReportDTO object is returned as response of REST endpoints.
+ * Contains column name definitions to be shown after JSON serialization.
+ *
  * @author alican.albayrak
  */
 @Data

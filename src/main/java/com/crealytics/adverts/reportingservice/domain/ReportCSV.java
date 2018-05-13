@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 /**
+ * This is intermediate model to deserialize CSV file.
+ *
  * @author alican.albayrak
  */
 @Data

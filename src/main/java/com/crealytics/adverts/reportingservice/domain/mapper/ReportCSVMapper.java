@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
+ * {@see com.crealytics.adverts.reportingservice.domain.mapper.EntityMapper}
+ *
  * @author alican.albayrak
  */
 @Component

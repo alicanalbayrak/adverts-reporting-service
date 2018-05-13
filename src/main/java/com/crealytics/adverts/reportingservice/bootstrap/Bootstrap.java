@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * This class is to responsible of preparation of report data.
+ * Basically, orchestrates retrieving, reading, parsing and
+ * persisting of CSV files on application startup.
+ *
  * @author alican.albayrak
  */
 @Component
@@ -26,6 +30,12 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
     private CSVReaderService csvReaderService;
     private ReportService reportService;
 
+    /**
+     * This method called whenever Spring context is initialized.
+     * Here is the entry point of processing and loading initial data.
+     *
+     * @param contextRefreshedEvent Event that is raised from spring container
+     */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         LOG.debug("Context refreshed");
@@ -48,7 +58,12 @@ public class Bootstrap implements ApplicationListener<ContextRefreshedEvent> {
         reportService.saveReportCSVList(deserializedReportCSV);
     }
 
-
+    /**
+     * Retrieves report files from /resources/csv folder
+     *
+     * @return Returns {@link Optional#empty()} if an error occurs,
+     * otherwise returns resource array in {@link Optional} object.
+     */
     private Optional<Resource[]> retrieveReports() {
         LOG.debug("Retrieving reports");
 

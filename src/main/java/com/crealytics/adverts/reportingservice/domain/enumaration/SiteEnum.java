@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
+ * Available site parameters
+ *
  * @author alican.albayrak
  */
 public enum SiteEnum {

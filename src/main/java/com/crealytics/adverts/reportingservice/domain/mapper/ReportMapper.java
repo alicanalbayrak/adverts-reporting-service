@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
+ * Main purpose of this class is to generate {@link ReportDTO} from {@link Report}
+ *
+ * {@see com.crealytics.adverts.reportingservice.domain.mapper.EntityMapper}
+ *
  * @author alican.albayrak
  */
 @Component
@@ -14,15 +18,6 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 @DecoratedWith(ReportMapperDecorator.class)
 public interface ReportMapper extends EntityMapper<ReportDTO, Report> {
-
-//    @Mappings({
-//            @Mapping(target = "reportMetric.clickThroughRate", source = "clickThroughRate"),
-//            @Mapping(target = "reportMetric.conversionRate", source = "conversionRate"),
-//            @Mapping(target = "reportMetric.fillRate", source = "fillRate"),
-//            @Mapping(target = "reportMetric.effectiveCostPerThousand", source = "effectiveCostPerThousand")
-//    })
-//    @Override
-//    Report toEntity(ReportDTO dto);
 
     @Mappings({
             @Mapping(target = "clickThroughRate", source = "reportMetric.clickThroughRate"),

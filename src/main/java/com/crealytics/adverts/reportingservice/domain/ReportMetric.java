@@ -8,6 +8,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
+ * This entity contains calculated metrics for Report object.
+ *
  * @author alican.albayrak
  */
 @Getter
