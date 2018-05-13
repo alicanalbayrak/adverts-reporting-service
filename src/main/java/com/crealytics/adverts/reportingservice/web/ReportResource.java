@@ -5,7 +5,12 @@ import com.crealytics.adverts.reportingservice.service.ReportService;
 import com.crealytics.adverts.reportingservice.service.dto.ReportDTO;
 import com.crealytics.adverts.reportingservice.util.MonthUtil;
 import com.crealytics.adverts.reportingservice.web.rest.exception.BadRequestException;
+import com.crealytics.adverts.reportingservice.web.rest.exception.CommonExceptionResponse;
 import com.crealytics.adverts.reportingservice.web.rest.util.ResponseUtil;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -31,11 +36,17 @@ public class ReportResource {
         this.reportService = reportService;
     }
 
+    @ApiOperation(value = "This will get report by month and/or site")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = ReportDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = CommonExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = CommonExceptionResponse.class)
+    })
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ResponseEntity<ReportDTO> getReport(
-            @RequestParam(value = "month") Optional<String> month,
-            @RequestParam(value = "site") Optional<String> site) throws BadRequestException {
+            @ApiParam(value = "Optional Month: 1, jan, january") @RequestParam(value = "month") Optional<String> month,
+            @ApiParam(value = "Optional Month: 1, jan, january") @RequestParam(value = "site") Optional<String> site) throws BadRequestException {
 
         if (!month.isPresent() && !site.isPresent()) {
             LOG.error("Both month and site arguments are missing!");
@@ -55,6 +66,12 @@ public class ReportResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(reportService.getReportByMonthAndSite(monthIdx, siteEnum)));
     }
 
+    @ApiOperation(value = "This will get report by month and optional site")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = ReportDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = CommonExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = CommonExceptionResponse.class)
+    })
     @RequestMapping(value = "/{month}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ResponseEntity<ReportDTO> getReportByMonthPath(@PathVariable String month, @RequestParam Optional<String> site) throws BadRequestException {
@@ -67,6 +84,13 @@ public class ReportResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(reportService.getReportByMonthAndSite(monthIdx, siteEnum)));
     }
 
+
+    @ApiOperation(value = "This will get report by month and site (both required)")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = ReportDTO.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = CommonExceptionResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = CommonExceptionResponse.class)
+    })
     @RequestMapping(value = "/{month}/{site}", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     ResponseEntity<ReportDTO> getReportByMonthAndSitePathVar(@PathVariable String month, @PathVariable String site) throws BadRequestException {
@@ -75,6 +99,7 @@ public class ReportResource {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(reportService.getReportByMonthAndSite(monthIdx, siteEnum)));
     }
 
+    @ApiOperation(value = "This will get all report from database (paginated)")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Page<ReportDTO>> getAllReports(Pageable pageable) {
         Page<ReportDTO> page = reportService.findAll(pageable);
